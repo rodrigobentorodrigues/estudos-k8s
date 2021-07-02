@@ -1,0 +1,14 @@
+-- Criando o cluster
+k3d cluster create meucluster --servers 1 --agents 2 -p "8080:30000@loadbalancer"
+-- Verificando nodes
+kubectl get nodes
+-- Verificando pods
+kubectl get pods
+-- Verificando deployments
+kubectl get deployments
+-- Listar tudo
+kubectl get all
+-- Executar arquivos yaml
+kubectl apply -f .\arquivo.yaml
+-- Alterar o numero de replicas
+kubectl scale deployment "nome" --replicas "valor"
