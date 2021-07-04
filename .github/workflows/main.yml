@@ -39,7 +39,7 @@ jobs:
   CD:
     runs-on: ubuntu-latest
     needs: [CI]
-    stpes:
+    steps:
       - uses: actions/checkout@v2
       - name: Kubernetes set context
         uses: Azure/k8s-set-context@v1.1
