@@ -1,5 +1,4 @@
 # This is a basic workflow to help you get started with Actions
-
 name: CI-CD
 
 # Controls when the workflow will run
@@ -41,14 +40,24 @@ jobs:
     needs: [CI]
     steps:
       - uses: actions/checkout@v2
+      
       - name: Kubernetes set context
         uses: Azure/k8s-set-context@v1.1
         with:
           method: kubeconfig
           kubeconfig: ${{ secrets.K8S_CONFIG }}
+          
       - name: Deploy Mongo
         uses: Azure/k8s-deploy@v1
         with:
           manifests: | 
             ./src/k8s/mongodb/deployment.yaml
-            ./src/k8s/mongodb/service.yaml  
+            ./src/k8s/mongodb/service.yaml
+            
+      - name: Deploy Web
+        uses: Azure/k8s-deploy@v1
+        with:
+          manifests: | 
+            ./src/k8s/web/deployment.yaml
+            ./src/k8s/mongodb/service.yaml
+          images: rodrigobento/rotten-potatoes:latest
